@@ -40,7 +40,6 @@
           </ul>
         </li>
 
-
           </ul>
 
           <ul class="navbar-nav">
@@ -65,7 +64,24 @@
         </div>
       </div>
     </nav>
-<button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
-    <%= yield %>
+
+    <div class="fluid-container">
+      <div class="row">
+        <div class="col-sm-2">
+          <% if user_signed_in? %>
+            <h5>Chatrooms</h5>
+            <ul>
+              <% current_user.chatrooms.each do |chatroom| %>
+                <li><%= link_to chatroom.name, "#" %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+        <div class="col-sm-10">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
