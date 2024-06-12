@@ -2,19 +2,32 @@
 
 <h1>Chatrooms</h1>
 
-<div id="chatrooms">
-  <% @chatrooms.each do |chatroom| %>
-    <%= render chatroom %>
-    <p>
-      <%= link_to "Show this chatroom", chatroom %>
-    </p>
-    <p>
-      <%= link_to "Join", chatroom_chatroom_users_path(chatroom), data: {turbo_method: :post} %>
-    </p>
-    <p>
-      <%= link_to "Leave", chatroom_chatroom_users_path(chatroom), data: {turbo_method: :delete} %>
-    </p>
-  <% end %>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @chatrooms.each do |chatroom| %>
+      <tr>
+        <td><%= chatroom.name %></td>
+        <td>
+          <%= link_to "Show this chatroom", chatroom %>
+        </td>
+        <td>
+          <%= link_to "Join", chatroom_chatroom_users_path(chatroom), data: {turbo_method: :post} %>
+        </td>
+        <td>
+          <%= link_to "Leave", chatroom_chatroom_users_path(chatroom), data: {turbo_method: :delete} %>
+        </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
 
 <%= link_to "New chatroom", new_chatroom_path %>

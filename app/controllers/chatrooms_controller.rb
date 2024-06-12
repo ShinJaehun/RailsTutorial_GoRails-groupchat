@@ -8,6 +8,7 @@ class ChatroomsController < ApplicationController
 
   # GET /chatrooms/1 or /chatrooms/1.json
   def show
+    @messages = @chatroom.messages.order(created_at: :desc).limit(100).reverse
   end
 
   # GET /chatrooms/new
