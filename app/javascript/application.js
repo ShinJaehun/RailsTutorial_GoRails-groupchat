@@ -23,3 +23,4 @@ console.log("넌 뒤졌어~");
 //    }
 //  })
 //});
+import "channels"

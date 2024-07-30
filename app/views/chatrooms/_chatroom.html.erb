@@ -1,21 +1,19 @@
-<div id="<%= dom_id chatroom %>">
+<div data-controller="chatroom" data-chatroom-id="<%= @chatroom.id %>">
   <p>
     <strong>Name:</strong>
     <%= chatroom.name %>
   </p>
 
-  <div data-behavior="messages">
-    <% @messages.each do |message| %>
-      <div>
-        <strong><%= message.user.username %>:</strong><%= message.body %>
-      </div>
-    <% end %>
+  <div data-chatroom-target="messages">
+    <%= render @messages %>
   </div>
 
   <% if user_signed_in? %>
-    <div data-controller="chatroom">
-      <%= form_for [chatroom, Message.new], data: {action: 'keydown.enter->chatroom#keypress' } do |f| %>
-        <%= f.text_area :body, rows: 1, class: "form-control", autofocus: true %>
+    <div>
+      <%= form_with model: [@chatroom, Message.new], data: { action: "turbo:submit-end->chatroom#clearMessage" } do |f| %>
+        <%#= f.text_area :body, rows: 1, data: {chatroom_target: "newMessage"}, class: "form-control", autofocus: true %>
+        <!-- 뭔지 모르겠는데 이거 바꾸니까 data-action이 동작하기 시작함...ㅠㅠ -->
+        <%= f.text_field :body, class: "form-control", data: {chatroom_target: "newMessage"} %>
       <% end %>
     </div>
   <% end %>
